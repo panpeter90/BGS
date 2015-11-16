@@ -1,4 +1,4 @@
-﻿/*
+/*
 This file is part of BGSLibrary.
 
 BGSLibrary is free software: you can redistribute it and/or modify
@@ -16,18 +16,29 @@ along with BGSLibrary.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
+#include <iostream>
 #include <opencv/cv.h>
+#include <opencv/highgui.h>
 
-class IBGS
+#include "IBGS.h"
+
+class FrameDifferenceBGS : public IBGS
 {
+private:
+  bool firstTime;
+  cv::Mat img_input_prev;
+  cv::Mat img_foreground;
+  bool enableThreshold;
+  int threshold;
+  bool showOutput;
+
 public:
-  virtual void process(const cv::Mat &img_input, cv::Mat &img_foreground, cv::Mat &img_background) = 0;
-  /*virtual void process(const cv::Mat &img_input, cv::Mat &img_foreground){
-    process(img_input, img_foreground, cv::Mat());
-  }*/
-  virtual ~IBGS(){}
+  FrameDifferenceBGS();
+  ~FrameDifferenceBGS();
+
+  void process(const cv::Mat &img_input, cv::Mat &img_output, cv::Mat &img_bgmodel);
 
 private:
-  virtual void saveConfig() = 0;
-  virtual void loadConfig() = 0;
+  void saveConfig();
+  void loadConfig();
 };

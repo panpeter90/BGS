@@ -42,20 +42,21 @@ void BlobTracking::process(const cv::Mat &img_input, const cv::Mat &img_mask, cv
   unsigned int result = cvb::cvLabel(segmentated, labelImg, blobs);
   
   cvb::cvFilterByArea(blobs, 1500, 20000);
+
   //cvb::cvFilterByArea(blobs, minArea, maxArea);
   
   //cvb::cvRenderBlobs(labelImg, blobs, frame, frame, CV_BLOB_RENDER_BOUNDING_BOX);
   //if(debugBlob)
    // cvb::cvRenderBlobs(labelImg, blobs, frame, frame, CV_BLOB_RENDER_BOUNDING_BOX|CV_BLOB_RENDER_CENTROID|CV_BLOB_RENDER_ANGLE|CV_BLOB_RENDER_TO_STD);
   //else
-    cvb::cvRenderBlobs(labelImg, blobs, frame, frame, CV_BLOB_RENDER_BOUNDING_BOX);
+    cvb::cvRenderBlobs(labelImg, blobs, frame, frame, CV_BLOB_RENDER_BOUNDING_BOX|CV_BLOB_RENDER_TO_STD);
 
-  cvb::cvUpdateTracks(blobs, tracks, 200.,5);
+  //cvb::cvUpdateTracks(blobs, tracks, 200.,5);
   
   //if(debugTrack)
     //cvb::cvRenderTracks(tracks, frame, frame, CV_TRACK_RENDER_ID|CV_TRACK_RENDER_BOUNDING_BOX|CV_TRACK_RENDER_TO_STD);
  // else
-    cvb::cvRenderTracks(tracks, frame, frame, CV_TRACK_RENDER_ID|CV_TRACK_RENDER_BOUNDING_BOX);
+    //cvb::cvRenderTracks(tracks, frame, frame, CV_TRACK_RENDER_ID|CV_TRACK_RENDER_BOUNDING_BOX);
   
   //std::map<CvID, CvTrack *> CvTracks
 

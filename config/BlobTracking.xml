@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <opencv_storage>
-<minArea>500</minArea>
+<minArea>10000</minArea>
 <maxArea>20000</maxArea>
 <debugTrack>1</debugTrack>
 <debugBlob>1</debugBlob>

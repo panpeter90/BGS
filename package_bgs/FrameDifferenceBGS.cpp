@@ -55,8 +55,10 @@ void FrameDifferenceBGS::process(const cv::Mat &img_input, cv::Mat &img_output, 
 	cv::Mat erode_element = cv::getStructuringElement( cv::MORPH_ELLIPSE,
 		cv::Size( 2*erosion_size + 1, 2*erosion_size+1 ),
 		cv::Point( erosion_size, erosion_size ) );
+	//cv::erode(img_foreground, img_foreground, cv::getStructuringElement(cv::MORPH_ELLIPSE,cv::Size(2,2)));//atoi(argv[3]), atoi(argv[3]))));
+	cv::dilate(img_foreground, img_foreground, cv::getStructuringElement(cv::MORPH_ELLIPSE,cv::Size(4,4)));
 	//cv::erode( img_foreground, img_foreground, erode_element );
-	cv::dilate( img_foreground, img_foreground, erode_element );
+	//cv::dilate( img_foreground, img_foreground, erode_element );
 	//cv::Mat binary_image; 
 	
   if(showOutput)

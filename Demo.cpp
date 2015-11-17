@@ -6,14 +6,14 @@
 #include "package_bgs/FrameDifferenceBGS.h"
 #include "package_tracking/BlobTracking.h"
 #include "package_analysis/VehicleCouting.h"
+#include "VideoCapture/VideoCapture.h"
 #include <ctime>
-int main(int argc, char **argv)
+/*int main(int argc, char **argv)
 {
   std::cout << "Using OpenCV " << CV_MAJOR_VERSION << "." << CV_MINOR_VERSION << "." << CV_SUBMINOR_VERSION << std::endl;
-  int resize_factor = 40;
-  /* Open video file */
+  int resize_factor = 100;
   CvCapture *capture = 0;
-  capture = cvCaptureFromAVI("D:/video/100ANV01/9.MP4");
+  capture = cvCaptureFromAVI("dataset/video.avi");//D:/video/9.MP4
   if(!capture){
     std::cerr << "Cannot open video!" << std::endl;
     return 1;
@@ -22,16 +22,16 @@ int main(int argc, char **argv)
   IplImage *frame = cvCreateImage(cvSize((int)((frame_aux->width*resize_factor)/100) , (int)((frame_aux->height*resize_factor)/100)), frame_aux->depth, frame_aux->nChannels);
   //cvResize(frame_aux, frame);
   
-  /* Background Subtraction Algorithm */
+  // Background Subtraction Algorithm 
   IBGS *bgs;
   //bgs = new PixelBasedAdaptiveSegmenter;
   bgs = new FrameDifferenceBGS ;
-  /* Blob Tracking Algorithm */
+ //Blob Tracking Algorithm 
   cv::Mat img_blob;
   BlobTracking* blobTracking;
   blobTracking = new BlobTracking;
 
-  /* Vehicle Counting Algorithm */
+  //Vehicle Counting Algorithm //
   VehicleCouting* vehicleCouting;
   vehicleCouting = new VehicleCouting;
 
@@ -58,16 +58,18 @@ int main(int argc, char **argv)
       // Perform blob tracking
 		const clock_t begin_time = clock();
        blobTracking->process(img_input, img_mask, img_blob);
+	    cv::imshow("img_blob", img_blob);
       // Perform vehicle counting
-      //vehicleCouting->setInput(img_blob);
+    //vehicleCouting->setInput(img_blob);
       //vehicleCouting->setTracks(blobTracking->getTracks());
       //vehicleCouting->process();
-		std::cout << "Time spent blobTracking:" <<float( clock () - begin_time ) /  CLOCKS_PER_SEC << "\n" << std::endl ;
+		std::cout << "Time spent blobTracking:" << float( clock () - begin_time ) /  CLOCKS_PER_SEC << "\n" << std::endl ;
     }
 
-    key = cvWaitKey(50);
+    key = cvWaitKey(150);
   }
   system("pause");
+  
   delete vehicleCouting;
   delete blobTracking;
   delete bgs;
@@ -76,4 +78,15 @@ int main(int argc, char **argv)
   cvReleaseCapture(&capture);
   
   return 0;
-}
+} */
+int main(int argc, char **argv){
+
+	VideoCapture* videoCapture;
+	videoCapture = new VideoCapture;
+	videoCapture->setVideo("D:/video/9.MP4");
+	videoCapture->setUpVideo();
+	videoCapture->start();
+
+	system("pause");
+	return 0;
+};

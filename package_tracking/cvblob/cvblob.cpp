@@ -310,7 +310,6 @@ namespace cvb
 
       for (CvBlobs::iterator it=blobs.begin(); it!=blobs.end(); ++it)
 	cvRenderBlob(imgLabel, (*it).second, imgSource, imgDest, mode, pal[(*it).second->label], alpha);
-
     }
     __CV_END__;
   }

@@ -15,7 +15,7 @@ const cvb::CvTracks BlobTracking::getTracks()
   return tracks;
 }
 
-void BlobTracking::process(const cv::Mat &img_input, const cv::Mat &img_mask, cv::Mat &img_output)
+void BlobTracking::process(const cv::Mat &img_input, const cv::Mat &img_mask, cv::Mat &img_output , cvb::CvBlobs &blobs_result)
 {
   if(img_input.empty() || img_mask.empty())
     return;
@@ -41,15 +41,15 @@ void BlobTracking::process(const cv::Mat &img_input, const cv::Mat &img_mask, cv
   cvb::CvBlobs blobs;
   unsigned int result = cvb::cvLabel(segmentated, labelImg, blobs);
   
-  cvb::cvFilterByArea(blobs, 1500, 20000);
+  //cvb::cvFilterByArea(blobs, 1500, 20000);
 
-  //cvb::cvFilterByArea(blobs, minArea, maxArea);
+  cvb::cvFilterByArea(blobs, minArea, maxArea);
   
   //cvb::cvRenderBlobs(labelImg, blobs, frame, frame, CV_BLOB_RENDER_BOUNDING_BOX);
-  //if(debugBlob)
-   // cvb::cvRenderBlobs(labelImg, blobs, frame, frame, CV_BLOB_RENDER_BOUNDING_BOX|CV_BLOB_RENDER_CENTROID|CV_BLOB_RENDER_ANGLE|CV_BLOB_RENDER_TO_STD);
-  //else
-    cvb::cvRenderBlobs(labelImg, blobs, frame, frame, CV_BLOB_RENDER_BOUNDING_BOX|CV_BLOB_RENDER_TO_STD);
+  if(debugBlob)
+    cvb::cvRenderBlobs(labelImg, blobs, frame, frame, CV_BLOB_RENDER_BOUNDING_BOX|CV_BLOB_RENDER_CENTROID|CV_BLOB_RENDER_ANGLE|CV_BLOB_RENDER_TO_STD);
+  else
+  cvb::cvRenderBlobs(labelImg, blobs, frame, frame, CV_BLOB_RENDER_BOUNDING_BOX);
 
   //cvb::cvUpdateTracks(blobs, tracks, 200.,5);
   
@@ -59,7 +59,7 @@ void BlobTracking::process(const cv::Mat &img_input, const cv::Mat &img_mask, cv
     //cvb::cvRenderTracks(tracks, frame, frame, CV_TRACK_RENDER_ID|CV_TRACK_RENDER_BOUNDING_BOX);
   
   //std::map<CvID, CvTrack *> CvTracks
-
+  blobs_result = blobs;
   if(showOutput)
     cvShowImage("Blob Tracking", frame);
 

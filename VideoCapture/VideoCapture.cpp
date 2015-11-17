@@ -129,6 +129,7 @@ void VideoCapture::start()
   cv::Mat img_blob;
   BlobTracking* blobTracking;
   blobTracking = new BlobTracking;
+  cvb::CvBlobs blobs;
   //end
   cv::Mat img_mask;
   cv::Mat img_model_bg;
@@ -210,7 +211,10 @@ void VideoCapture::start()
 	const clock_t begin_time = clock();
 	if(!img_mask.empty())
 	{
-		blobTracking->process(img_input, img_mask, img_blob);
+		blobTracking->process(img_input, img_mask, img_blob, blobs);
+		for (cvb::CvBlobs::iterator it=blobs.begin(); it!=blobs.end(); ++it) {
+				std::cout << (*it).second->centroid.x << "," << (*it).second->centroid.y  << std::endl;
+			}
 		cv::imshow("img_blob", img_blob);
 		// Perform vehicle counting
 		//vehicleCouting->setInput(img_blob);

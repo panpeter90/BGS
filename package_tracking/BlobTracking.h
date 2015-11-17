@@ -12,7 +12,8 @@ private:
   bool firstTime;
   int minArea;
   int maxArea;
-  
+  int line_pos;
+  int frameHeight;
   bool debugTrack;
   bool debugBlob;
   bool showBlobMask;
@@ -26,7 +27,7 @@ public:
   BlobTracking();
   ~BlobTracking();
 
-  void process(const cv::Mat &img_input, const cv::Mat &img_mask, cv::Mat &img_output,cvb::CvBlobs &blobs_result);
+  void process(const cv::Mat &img_input, const cv::Mat &img_mask, cv::Mat &img_output);
   const cvb::CvTracks getTracks();
 };
 

@@ -26,6 +26,7 @@ along with BGSLibrary.  If not, see <http://www.gnu.org/licenses/>.
 #include "../VideoCapture/VideoCapture.h"
 #include <ctime>
 
+
 namespace VC_ROI
 {
   IplImage* img_input1 = 0;
@@ -129,7 +130,6 @@ void VideoCapture::start()
   cv::Mat img_blob;
   BlobTracking* blobTracking;
   blobTracking = new BlobTracking;
-  cvb::CvBlobs blobs;
   //end
   cv::Mat img_mask;
   cv::Mat img_model_bg;
@@ -196,7 +196,6 @@ void VideoCapture::start()
       CvRect rect = cvRect(VC_ROI::roi_x0, VC_ROI::roi_y0, VC_ROI::roi_x1 - VC_ROI::roi_x0, VC_ROI::roi_y1 - VC_ROI::roi_y0);
       cvSetImageROI(frame, rect);
     }
-
     cv::Mat img_input(frame);
     
     if(showOutput)
@@ -211,10 +210,10 @@ void VideoCapture::start()
 	const clock_t begin_time = clock();
 	if(!img_mask.empty())
 	{
-		blobTracking->process(img_input, img_mask, img_blob, blobs);
-		for (cvb::CvBlobs::iterator it=blobs.begin(); it!=blobs.end(); ++it) {
-				std::cout << (*it).second->centroid.x << "," << (*it).second->centroid.y  << std::endl;
-			}
+		blobTracking->process(img_input, img_mask, img_blob);
+		//for (cvb::CvBlobs::iterator it=blobs.begin(); it!=blobs.end(); ++it) {
+			//std::cout << (*it).second->centroid.x << "," << (*it).second->centroid.y  << std::endl;
+		//}
 		cv::imshow("img_blob", img_blob);
 		// Perform vehicle counting
 		//vehicleCouting->setInput(img_blob);

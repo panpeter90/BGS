@@ -83,7 +83,7 @@ int main(int argc, char **argv){
 
 	VideoCapture* videoCapture;
 	videoCapture = new VideoCapture;
-	videoCapture->setVideo("D:/video/9.MP4");
+	videoCapture->setVideo("D:/video/100ANV01/9.MP4");
 	videoCapture->setUpVideo();
 	videoCapture->start();
 
